@@ -1,0 +1,164 @@
+package Biblioteca;
+public class Libro {
+	 private String titolo;
+	 private String autore;
+	 private int copieTotali;
+	 private int copieInPrestito;
+	 public Libro() {
+		 
+	 }
+	 public Libro(String titolo, String autore, int copieTotali, int copieInPrestito) {
+		 this.titolo = titolo;
+		 this.autore = autore;
+		 this.copieTotali = copieTotali;
+		 this.copieInPrestito = copieInPrestito;
+	 }
+	 
+	 public String getTitolo() {
+		return titolo;
+	}
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+	public String getAutore() {
+		return autore;
+	}
+	public void setAutore(String autore) {
+		this.autore = autore;
+	}
+	public int getCopieTotali() {
+		return copieTotali;
+	}
+	public void setCopieTotali(int copieTotali) {
+		this.copieTotali = copieTotali;
+	}
+	public int getCopieInPrestito() {
+		return copieInPrestito;
+	}
+	public void setCopieInPrestito(int copieInPrestito) {
+		this.copieInPrestito = copieInPrestito;
+	}
+	public String toString() {
+		 return titolo + "di" + autore + " : " +  copieTotali + "Copie totali, "+ copieInPrestito + "in prestito,";
+	 }
+	 }
+import java.util.ArrayList;
+
+
+//Elenco libri biblioteca
+
+public class Biblioteca {
+		private ArrayList<Libro> libri; // Elenco libri biblioteca
+
+
+public Biblioteca() {
+        this.libri = new ArrayList<>();
+}
+   
+public ArrayList<Libro> getLibri() {
+	return libri;
+}
+
+// aggiungi libro
+
+public void aggiungiLibro(Libro libro) {
+	
+	libri.add(libro);
+	
+}
+
+// rimuovere un libro
+
+public void rimuoviLibro(Libro libro) {
+	
+	libri.remove(libro);
+
+}
+public String prestaLibro(Libro libro) {
+    if (libro.getCopieTotali() > 0) {
+        libro.setCopieTotali(libro.getCopieTotali() - 1);
+        libro.setCopieInPrestito(libro.getCopieInPrestito() + 1);
+        return "Prenotazione Effettuata! Copie disponibili: " + libro.getCopieTotali() + ", Copie in prestito: " + libro.getCopieInPrestito();
+    } else {
+        return "Errore: Nessuna copia disponibile per la prenotazione.";
+    }
+public void stampaLibriDisponibili() {
+        if (libriDisponibili.isEmpty()) {
+            System.out.println("Non ci sono libri nella biblioteca.");
+        } else {
+            for (Libro libro : libriDisponibili) {
+                
+                int copieDisponibili = libro.getCopieTotali() - libro.getCopieInPrestito();
+                System.out.println(libro.getTitolo() + " di " + libro.getAutore() +
+                                   " : " + copieDisponibili + " copie disponibili.");
+            }
+        }
+}
+package app;
+
+import java.util.Scanner;
+
+public class BibliotecaApp {
+
+	public class Main {
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+	        Biblioteca biblioteca = new Biblioteca();
+	        boolean continua = true;
+
+	        while (continua) {
+	            System.out.println("\n--- Menu Biblioteca ---");
+	            System.out.println("1. Aggiungi un libro");
+	            System.out.println("2. Rimuovi un libro");
+	            System.out.println("3. Presta un libro");
+	            System.out.println("4. Restituisci un libro");
+	            System.out.println("5. Visualizza i libri disponibili");
+	            System.out.println("6. Esci");
+	            System.out.print("Scegli un'opzione: ");
+
+	            int scelta = scanner.nextInt();
+	            scanner.nextLine(); // Per consumare il newline rimasto
+
+	            switch (scelta) {
+	                case 1: // Aggiungi un libro
+	                    
+	                    biblioteca.m_aggiungiLibro();
+	                    break;
+
+	                case 2: // Rimuovi un libro
+	    
+	                    biblioteca.m_rimuoviLibro();
+	                    break;
+
+	                case 3: // Presta un libro
+	                 
+	                    biblioteca.m_prestaLibro();
+	                    break;
+
+	                case 4: // Restituisci un libro
+	                  
+	                    biblioteca.m_restituisciLibro();
+	                    break;
+
+	                case 5: // Visualizza i libri disponibili
+	                    System.out.println("\n--- Libri disponibili ---");
+	                    biblioteca.m_stampaLibriDisponibili();
+	                    break;
+
+	                case 6: // Esci
+	                    System.out.println("Uscita dal programma. Arrivederci!");
+	                    continua = false;
+	                    break;
+
+	                default:
+	                    System.out.println("Scelta non valida. Riprova.");
+	            }
+	        }
+
+	        scanner.close();
+	    }
+	}
+
+}
+
+
